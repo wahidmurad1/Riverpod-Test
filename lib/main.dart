@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_project1/homepage.dart';
 
 //Declaration a value using riverpod
-final nameProvider = Provider<String>(
-  (ref) {
-    return 'Hello Wahid';
-  },
-);
+final countProvider = StateProvider<int>((ref){
+  return 0;
+});
 //wrap the MyApp class by ProviderScope
 void main() {
   runApp(const ProviderScope(child: MyApp()));
