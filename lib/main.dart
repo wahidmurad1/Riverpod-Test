@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_project1/counter_demo.dart';
+import 'package:riverpod_project1/api_service.dart';
 import 'package:riverpod_project1/homepage.dart';
+import 'package:riverpod_project1/user_model.dart';
 
 //Declaration a value using riverpod
-final counterProvider = StateNotifierProvider<CounterDemo, int>((ref) {
-  return CounterDemo();
+final apiProvider = Provider<ApiService>(
+  (ref) {
+    return ApiService();
+  },
+);
+final userDataProvider = FutureProvider<List<UserModel>>((ref) {
+  return ref.read(apiProvider).getUser();
 });
 //wrap the MyApp class by ProviderScope
 void main() {

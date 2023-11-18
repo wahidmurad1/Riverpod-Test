@@ -7,33 +7,33 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
-    return Container(
-      color: Colors.white,
-      child: SafeArea(
-        top: false,
-        child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                onPressed: () {
-                  // ref.invalidate(countProvider);
-                  // ref.refresh(countProvider);
-                },
-                icon: Icon(Icons.refresh),
-              )
-            ],
-          ),
-          body: Center(child: Text(count.toString())),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              // ref.read(countProvider.notifier).state++;
-              ref.read(counterProvider.notifier).increment();
-            },
-            child: const Icon(Icons.add),
-          ),
-        ),
-      ),
+    final userData = ref.watch(userDataProvider);
+    return Scaffold(
+      body: userData.when(data: (data) {
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Container(
+                          width: 40, height: 40, decoration: const BoxDecoration(shape: BoxShape.circle), child: Image.network(data[index].avatar.toString())),
+                      title: Text('${data[index].firstName} ${data[index].lastName}'),
+                      subtitle: Text(data[index].email ?? 'NA'),
+                      // trailing: Text(data[index].id.toString()),
+                    );
+                  }),
+            ),
+          ],
+        );
+      }, error: (error, errorStack) {
+        return Text(error.toString());
+      }, loading: () {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
     );
   }
 }
