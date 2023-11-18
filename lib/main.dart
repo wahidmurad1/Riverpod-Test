@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_project1/counter_demo.dart';
 import 'package:riverpod_project1/homepage.dart';
 
 //Declaration a value using riverpod
-final countProvider = StateProvider<int>((ref){
-  return 0;
+final counterProvider = StateNotifierProvider<CounterDemo, int>((ref) {
+  return CounterDemo();
 });
 //wrap the MyApp class by ProviderScope
 void main() {

@@ -7,12 +7,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(countProvider);
-    ref.listen(countProvider, ((previous, next) {
-      if (next == 10) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('This value is equal to 10')));
-      }
-    }));
+    final count = ref.watch(counterProvider);
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -22,7 +17,7 @@ class HomePage extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref.invalidate(countProvider);
+                  // ref.invalidate(countProvider);
                   // ref.refresh(countProvider);
                 },
                 icon: Icon(Icons.refresh),
@@ -33,7 +28,7 @@ class HomePage extends ConsumerWidget {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               // ref.read(countProvider.notifier).state++;
-              ref.read(countProvider.notifier).update((state) => state + 1);
+              ref.read(counterProvider.notifier).increment();
             },
             child: const Icon(Icons.add),
           ),
