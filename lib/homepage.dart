@@ -30,7 +30,7 @@ class HomePage extends ConsumerWidget {
       }, error: (error, errorStack) {
         return Text(error.toString());
       }, loading: () {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       }),
