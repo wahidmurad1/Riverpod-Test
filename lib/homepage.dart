@@ -8,6 +8,11 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(countProvider);
+    ref.listen(countProvider, ((previous, next) {
+      if (next == 10) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('This value is equal to 10')));
+      }
+    }));
     return Container(
       color: Colors.white,
       child: SafeArea(
