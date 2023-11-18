@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_project1/api_service.dart';
 import 'package:riverpod_project1/homepage.dart';
+import 'package:riverpod_project1/homepage_2.dart';
 import 'package:riverpod_project1/user_model.dart';
 
 //Declaration a value using riverpod
@@ -12,6 +13,10 @@ final apiProvider = Provider<ApiService>(
 );
 final userDataProvider = FutureProvider<List<UserModel>>((ref) {
   return ref.read(apiProvider).getUser();
+});
+//*Stream provider
+final streamProvider = StreamProvider<int>((ref) {
+  return  Stream.periodic(Duration(seconds: 2),(computationCount) => computationCount,);//stream.periodic
 });
 //wrap the MyApp class by ProviderScope
 void main() {
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: HomePage2(),
     );
   }
 }
